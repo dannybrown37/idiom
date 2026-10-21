@@ -1,0 +1,67 @@
+/* Brick. Mirrors maadgoat.com, which uses it. Source:
+   maad-goat-site/src/styles/global.css (@theme + .dark).
+   Exact: bg (surface), surface (surface-raised), sunken (surface-alt), line,
+   text (ink), text-muted (ink-muted), text-faint (ink-subtle),
+   accent (brand-500, the CTA fill in both modes), accent-ink (accent),
+   accent-hover (brand-600), white on the CTA, fonts, square corners, flat
+   controls, and the CTA's bold uppercase wider-tracked label.
+   Pure white paper is the site's choice (it mirrors the printed menu).
+   Derived: pos, neg, the raised-surface shadow.
+   Deviation: line-strong is darker than the site's (#d4d4d4 light, #3d3d3d
+   dark) so control borders reach 3:1 (WCAG 1.4.11).
+   Not carried over: the 3px dashed rules under the header and headings.
+   Checked against the running site's computed styles, 2026-10-21. */
+
+[data-palette="brick"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --sunken: #f5f5f5;
+  --line: #e5e5e5;
+  --line-strong: #929292;
+  --text: #171717;
+  --text-muted: #525252;
+  --text-faint: #737373;
+  --accent: #c0392b;
+  --accent-ink: #a33224;
+  --accent-hover: #a33224;
+  --on-accent: #ffffff;
+  --pos: #2e6b3f;
+  --neg: #872a1e;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 700;
+  --display-tracking: normal;
+
+  --control-weight: 700;
+  --control-case: uppercase;
+  --control-tracking: 0.05em;
+
+  --radius-s: 0;
+  --radius-m: 0;
+  --radius-control: 0;
+  --shadow-control: none;
+  --shadow-raise: 0 2px 8px rgb(23 23 23 / 0.08);
+  --press: 0px;
+}
+
+[data-palette="brick"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0f0f0f;
+  --surface: #161616;
+  --sunken: #1a1a1a;
+  --line: #2b2b2b;
+  --line-strong: #656565;
+  --text: #fafafa;
+  --text-muted: #a8a8a8;
+  --text-faint: #8c8c8c;
+  --accent: #c0392b;
+  --accent-ink: #f59898;
+  --accent-hover: #a33224;
+  --on-accent: #ffffff;
+  --pos: #7cc48f;
+  --neg: #f59898;
+  --shadow-raise: 0 2px 8px rgb(0 0 0 / 0.4);
+}

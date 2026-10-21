@@ -1,0 +1,71 @@
+---
+import { Code } from "astro:components";
+import { TITLES } from "../elements";
+import type { CatalogElement } from "../lib/catalog";
+
+interface Props {
+  element: CatalogElement;
+}
+
+const { element } = Astro.props;
+const anchor = element.id.replace("/", "-");
+const blocks = [
+  { label: "HTML", lang: "html", code: element.html.trim() },
+  { label: "CSS", lang: "css", code: element.css.trim() },
+  { label: "JS", lang: "js", code: element.js.trim() },
+].filter((block) => block.code !== "");
+const buildsOn = (element.requires ?? []).map((id) => TITLES.get(id) ?? id);
+const copyHint =
+  buildsOn.length > 0
+    ? `Copy with ${buildsOn.join(" and ")} included`
+    : "Copy HTML, CSS and JS";
+---
+
+<article class="spec" id={anchor}>
+  <header class="spec-head">
+    <h3>{element.title}</h3>
+    {element.status === "draft" && <span class="badge">Draft</span>}
+    <code class="spec-id label">{element.id}</code>
+    <button
+      class="icon-btn tip spec-copy"
+      type="button"
+      aria-label={`Copy ${element.title}`}
+      data-tip={copyHint}
+      data-snippet={element.snippet}
+    >
+      <svg class="copy-icon" viewBox="0 0 16 16" aria-hidden="true">
+        <rect x="5.5" y="5.5" width="8" height="8" rx="1.5"></rect>
+        <path d="M10.5 3.5v-.5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h.5"
+        ></path>
+      </svg>
+      <svg class="copied-icon" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M3 8.5l3 3 7-7"></path>
+      </svg>
+    </button>
+  </header>
+  {
+    (buildsOn.length > 0 || element.note) && (
+      <p class="spec-note">
+        {buildsOn.length > 0 && `Builds on ${buildsOn.join(" and ")}. `}
+        {element.note}
+      </p>
+    )
+  }
+  <div class="spec-stage" set:html={element.html} />
+  <details class="spec-code">
+    <summary>Code</summary>
+    {
+      blocks.map((block) => (
+        <div class="code-block">
+          <div class="code-block-head">
+            <span class="label">{block.label}</span>
+            <button class="btn btn-ghost btn-s" type="button" data-copy>
+              Copy
+            </button>
+          </div>
+          <Code code={block.code} lang={block.lang} theme="css-variables" />
+        </div>
+      ))
+    }
+  </details>
+</article>

@@ -1,0 +1,57 @@
+/* Long-form text. Blockquotes are used as asides, so no quote marks or
+   italics. */
+
+.prose {
+  max-width: 38rem;
+  line-height: 1.65;
+}
+
+.prose > * + * {
+  margin-top: var(--space-4);
+}
+
+.prose h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch, normal);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-case, none);
+  font-size: var(--text-xl);
+  line-height: 1.15;
+}
+
+.prose p,
+.prose li {
+  text-wrap: pretty;
+}
+
+.prose ul {
+  padding-left: var(--space-5);
+}
+
+.prose li + li {
+  margin-top: var(--space-1);
+}
+
+.prose li::marker {
+  color: var(--text-faint);
+}
+
+.prose code {
+  padding: 0.1em 0.35em;
+  font: 500 0.875em var(--font-mono);
+  background: var(--sunken);
+  border: 1px solid var(--line);
+  border-radius: min(var(--radius-s), 4px);
+}
+
+.prose blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  background: var(--sunken);
+  border-radius: var(--radius-m);
+}

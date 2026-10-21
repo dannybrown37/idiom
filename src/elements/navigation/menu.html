@@ -1,0 +1,26 @@
+<button class="btn menu-trigger" type="button" popovertarget="menu-demo">
+  Actions
+  <svg class="menu-caret" viewBox="0 0 12 12" aria-hidden="true">
+    <path d="M3 4.5l3 3 3-3" />
+  </svg>
+</button>
+<div class="menu" id="menu-demo" popover>
+  <button class="menu-item" type="button" popovertarget="menu-demo" popovertargetaction="hide">
+    Rename <kbd>R</kbd>
+  </button>
+  <button class="menu-item" type="button" popovertarget="menu-demo" popovertargetaction="hide">
+    Duplicate <kbd>D</kbd>
+  </button>
+  <button class="menu-item" type="button" popovertarget="menu-demo" popovertargetaction="hide">
+    Move to folder
+  </button>
+  <hr class="menu-rule" />
+  <button
+    class="menu-item menu-item-neg"
+    type="button"
+    popovertarget="menu-demo"
+    popovertargetaction="hide"
+  >
+    Delete <kbd>⌫</kbd>
+  </button>
+</div>

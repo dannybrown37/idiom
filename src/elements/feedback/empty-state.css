@@ -1,0 +1,27 @@
+/* Left-aligned like the content it stands in for; the dashed edge marks the
+   space as a slot waiting to be filled. */
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-6);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-m);
+}
+
+.empty p {
+  margin: 0;
+}
+
+.empty-title {
+  font-weight: 600;
+}
+
+.empty-text {
+  max-width: 34rem;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}

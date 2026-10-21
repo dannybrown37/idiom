@@ -1,0 +1,131 @@
+---
+const colours = [
+  ["--bg", "Page ground"],
+  ["--surface", "Raised: panels, inputs"],
+  ["--sunken", "Recessed: wells, code, hover"],
+  ["--line", "Hairlines and dividers"],
+  ["--line-strong", "Control borders"],
+  ["--text", "Body text"],
+  ["--text-muted", "Secondary text"],
+  ["--text-faint", "Labels and metadata"],
+  ["--accent", "The one accent: selected, primary, on"],
+  ["--accent-ink", "Accent as text, contrast-safe"],
+  ["--pos", "Success"],
+  ["--neg", "Error, destructive"],
+];
+
+const spaces = [1, 2, 3, 4, 5, 6, 7, 8];
+const shapes = ["--radius-s", "--radius-m", "--radius-control"];
+---
+
+<section class="section" id="foundations" aria-labelledby="foundations-h">
+  <div class="section-head">
+    <h2 id="foundations-h">Foundations</h2>
+    <span class="section-count">Tokens</span>
+  </div>
+
+  <div class="subsection">
+    <span class="label">Colour</span>
+    <ul class="swatches">
+      {
+        colours.map(([token, role]) => (
+          <li class="swatch">
+            <span class="swatch-chip" style={`background: var(${token})`} />
+            <code>{token}</code>
+            <span class="swatch-role">{role}</span>
+            <span class="swatch-value" data-token={token} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <span class="label">Type</span>
+    <div class="specimen">
+      <code class="label" data-font="--font-display"></code>
+      <p class="specimen-display">Quarterly numbers</p>
+    </div>
+    <div class="specimen">
+      <code class="label" data-font="--font-body"></code>
+      <p class="specimen-body">
+        Body copy sits at 16px with a line height around 1.55, held to a
+        measure of roughly 65 characters so the eye can find the start of the
+        next line.
+      </p>
+    </div>
+    <div class="specimen">
+      <code class="label" data-font="--font-mono"></code>
+      <p class="specimen-mono">git log --oneline -n 3 · 0.875rem · 1,204.50</p>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <span class="label">Space</span>
+    <div class="scale">
+      {
+        spaces.map((step) => (
+          <>
+            <code class="label">--space-{step}</code>
+            <span class="scale-bar" style={`width: var(--space-${step})`} />
+          </>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="subsection">
+    <span class="label">Shape and depth</span>
+    <div class="shapes">
+      {
+        shapes.map((token) => (
+          <div class="shape">
+            <span
+              class="shape-box"
+              style={`border-radius: min(var(${token}), 1rem)`}
+            />
+            <code class="label">{token}</code>
+          </div>
+        ))
+      }
+      <div class="shape">
+        <span
+          class="shape-box"
+          style="border-radius: var(--radius-s); box-shadow: var(--shadow-control)"
+        ></span>
+        <code class="label">--shadow-control</code>
+      </div>
+      <div class="shape">
+        <span
+          class="shape-box"
+          style="border-radius: var(--radius-m); box-shadow: var(--shadow-raise)"
+        ></span>
+        <code class="label">--shadow-raise</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const fill = () => {
+    const style = getComputedStyle(document.documentElement);
+    for (const el of document.querySelectorAll<HTMLElement>("[data-token]")) {
+      el.textContent = style.getPropertyValue(el.dataset.token ?? "").trim();
+    }
+    for (const el of document.querySelectorAll<HTMLElement>("[data-font]")) {
+      el.textContent = renderedFamily(
+        style.getPropertyValue(el.dataset.font ?? ""),
+      );
+    }
+  };
+
+  // The first family in the stack that has a face declared on this page, so a
+  // family listed but never loaded is not named as the one rendering.
+  const renderedFamily = (stack: string) => {
+    const declared = new Set([...document.fonts].map((face) => face.family));
+    const families = stack.split(",").map((f) => f.replaceAll('"', "").trim());
+    return families.find((family) => declared.has(family)) ?? families[0];
+  };
+  fill();
+  document.addEventListener("idiom:theme", fill);
+</script>

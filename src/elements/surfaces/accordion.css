@@ -1,0 +1,60 @@
+/* <details name="..."> makes the group exclusive with no script. */
+
+.accordion {
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.accordion details {
+  border-bottom: 1px solid var(--line);
+}
+
+.accordion summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+}
+
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion summary::after {
+  content: "";
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid var(--text-muted);
+  border-bottom: 1.5px solid var(--text-muted);
+  rotate: 45deg;
+  translate: 0 -25%;
+  transition: rotate var(--dur) var(--ease);
+}
+
+.accordion details[open] summary::after {
+  rotate: 225deg;
+  translate: 0 25%;
+}
+
+.accordion summary:hover {
+  color: var(--text-muted);
+}
+
+.accordion p {
+  margin: 0;
+  padding: 0 0 var(--space-4);
+  max-width: 40rem;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion summary::after {
+    transition: none;
+  }
+}

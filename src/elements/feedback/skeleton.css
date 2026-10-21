@@ -1,0 +1,41 @@
+/* A slow opacity pulse rather than a sweeping shimmer. */
+
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: min(100%, 24rem);
+}
+
+.skeleton-lines {
+  display: grid;
+  flex: 1;
+  gap: var(--space-2);
+}
+
+.skeleton {
+  display: block;
+  height: 0.75rem;
+  background: var(--line);
+  border-radius: var(--radius-s);
+  animation: skeleton-pulse 1.6s var(--ease) infinite alternate;
+}
+
+.skeleton-circle {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+@keyframes skeleton-pulse {
+  to {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}

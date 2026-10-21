@@ -1,0 +1,56 @@
+/* Folio. Mirrors dannybrown.dev, which uses it. Source: dannybrown-dev/src/styles/global.css (@theme).
+   Exact: bg, sunken (paper-soft), line, text (ink), text-muted, accent,
+   fonts, the dark set, 6px control radius (rounded-md), and flat controls.
+   Derived (no source token): surface, line-strong, text-faint, accent-ink,
+   pos, neg, the raised-surface shadow. Mono is DM Mono here; the site uses
+   the system mono. Not carried over: the site's section headings are small
+   uppercase mono labels, which idiom has no token for yet.
+   Checked against the running site's computed styles, 2026-10-21. */
+
+[data-palette="folio"] {
+  color-scheme: light;
+  --bg: oklch(0.99 0.002 260);
+  --surface: oklch(0.99 0.002 260);
+  --sunken: oklch(0.965 0.004 260);
+  --line: oklch(0.9 0.006 260);
+  --line-strong: oklch(0.655 0.01 260);
+  --text: oklch(0.21 0.012 260);
+  --text-muted: oklch(0.52 0.014 260);
+  --text-faint: oklch(0.555 0.012 260);
+  --accent: oklch(0.55 0.15 250);
+  --accent-ink: oklch(0.55 0.15 250);
+  --on-accent: oklch(0.99 0.002 260);
+  --pos: oklch(0.52 0.12 150);
+  --neg: oklch(0.53 0.17 25);
+
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 400;
+  --display-tracking: normal;
+
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-control: 6px;
+  --shadow-control: none;
+  --shadow-raise: 0 2px 8px oklch(0.21 0.012 260 / 0.08);
+  --press: 0px;
+}
+
+[data-palette="folio"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: oklch(0.18 0.012 260);
+  --surface: oklch(0.22 0.014 260);
+  --sunken: oklch(0.155 0.012 260);
+  --line: oklch(0.31 0.014 260);
+  --line-strong: oklch(0.515 0.014 260);
+  --text: oklch(0.93 0.008 260);
+  --text-muted: oklch(0.68 0.014 260);
+  --text-faint: oklch(0.615 0.014 260);
+  --accent: oklch(0.78 0.13 250);
+  --accent-ink: oklch(0.78 0.13 250);
+  --on-accent: oklch(0.18 0.012 260);
+  --pos: oklch(0.78 0.12 150);
+  --neg: oklch(0.74 0.14 25);
+  --shadow-raise: 0 2px 8px oklch(0 0 0 / 0.35);
+}

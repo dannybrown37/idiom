@@ -1,0 +1,40 @@
+/* Theme-independent scales. Themes set colour, type families, shape and depth;
+   everything here stays fixed so a theme swap never moves the layout. */
+
+:root {
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 3rem;
+  --text-4xl: clamp(2.75rem, 6vw, 4.5rem);
+
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 90ms;
+  --dur: 180ms;
+}
+
+/* Derived here rather than on :root so a nested theme scope recomputes them.
+   :where() keeps this at zero specificity, so a theme that has its own
+   value (hamil's accent-bg) overrides it regardless of stylesheet order. */
+:where([data-palette]) {
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, var(--bg));
+  --accent-hover: color-mix(in oklab, var(--accent), var(--text) 14%);
+  /* accent-ink already clears 4.5:1 on paper, so the ring always clears the
+     3:1 a focus indicator needs; a bright accent like bulb yellow does not. */
+  --focus: var(--accent-ink);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+}

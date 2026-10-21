@@ -1,0 +1,33 @@
+.text-demo {
+  margin: 0;
+  max-width: 36rem;
+}
+
+.link {
+  color: var(--accent-ink);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(
+    in oklab,
+    var(--accent-ink) 40%,
+    transparent
+  );
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-fast) var(--ease);
+}
+
+.link:hover {
+  text-decoration-color: currentColor;
+}
+
+.link-external::after {
+  content: "↗";
+  margin-left: 0.15em;
+  font-size: 0.85em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}

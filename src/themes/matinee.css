@@ -1,0 +1,62 @@
+/* Matinee. Mirrors hamilhamilhamil.com, which uses it. Source: hamilhamilhamil/web/app/globals.css.
+   Exact: bg (surface), surface (raised), sunken (neutral-bg, light only),
+   line (border), text (ink), text-muted
+   (ink-muted), accent, accent-ink, accent-soft (accent-bg), pos-ink,
+   neg-ink, fonts, the dark set, 8px control radius (rounded-lg), and flat
+   controls. Headings are Playfair bold, tracking-tight, as on the site.
+   Derived: text-faint (the site's chart-axis is under 4.5:1 as text), dark
+   sunken, on-accent, the raised-surface shadow. Mono is DM Mono here; the
+   site uses the system mono.
+   Deviation: line-strong is darker than the site's border-strong (#cfc7b8
+   light, #45413a dark) so control borders reach 3:1 (WCAG 1.4.11).
+   Checked against the running site's computed styles, 2026-10-21. */
+
+[data-palette="matinee"] {
+  color-scheme: light;
+  --bg: #f7f4ef;
+  --surface: #fffdf9;
+  --sunken: #ebe6dd;
+  --line: #e3ddd2;
+  --line-strong: #908a80;
+  --text: #1c1a17;
+  --text-muted: #6d675d;
+  --text-faint: #746e64;
+  --accent: #b3312a;
+  --accent-ink: #8c241f;
+  --accent-soft: #f6e4e1;
+  --on-accent: #fffdf9;
+  --pos: #2f6b3a;
+  --neg: #9b3327;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 700;
+  --display-tracking: -0.025em;
+
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-control: 8px;
+  --shadow-control: none;
+  --shadow-raise: 0 2px 6px rgb(28 26 23 / 0.07);
+  --press: 0px;
+}
+
+[data-palette="matinee"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #171614;
+  --surface: #1f1d1a;
+  --sunken: #12110f;
+  --line: #322f2a;
+  --line-strong: #6d6962;
+  --text: #ece8e1;
+  --text-muted: #9a938a;
+  --text-faint: #8c857b;
+  --accent: #e8776d;
+  --accent-ink: #f0a49b;
+  --accent-soft: #3a221f;
+  --on-accent: #171614;
+  --pos: #8fc79a;
+  --neg: #e8968c;
+  --shadow-raise: 0 2px 6px rgb(0 0 0 / 0.35);
+}

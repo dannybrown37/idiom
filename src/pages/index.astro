@@ -1,0 +1,129 @@
+---
+import Foundations from "../components/Foundations.astro";
+import Spec from "../components/Spec.astro";
+import { APPROVED_COUNT, CATALOG, ELEMENT_COUNT } from "../elements";
+import Layout from "../layouts/Layout.astro";
+import { PALETTES } from "../themes";
+
+// Every theme's name and usage is in the markup and CSS shows the active one,
+// so the intro is right on first paint (the palette is set before paint)
+// without waiting for JS.
+const nameRules = PALETTES.map(
+  (palette) =>
+    `html[data-palette="${palette.id}"] .intro [data-palette-name="${palette.id}"]{display:inline}`,
+).join("\n");
+---
+
+<Layout
+  title="idiom · Danny Brown's UI library"
+  description={`Plain HTML and CSS interface elements that read only theme tokens. ${PALETTES.length} themes in light and dark, and a copy button on every element. MIT licensed.`}
+>
+  <style slot="head" is:inline set:html={nameRules}></style>
+  <div class="intro">
+    <h1 class="intro-title">
+      {
+        PALETTES.map((palette) => (
+          <span data-palette-name={palette.id}>{palette.name}</span>
+        ))
+      }
+    </h1>
+    <p class="intro-usage">
+      {
+        PALETTES.map((palette) => (
+          <span data-palette-name={palette.id}>
+            {palette.usedBy.length === 0
+              ? "Not used on any site yet"
+              : [
+                  "Used on ",
+                  ...palette.usedBy.flatMap((site, i) => [
+                    i > 0 ? ", " : "",
+                    <a class="link" href={site.url}>
+                      {site.name}
+                    </a>,
+                  ]),
+                ]}
+          </span>
+        ))
+      }
+    </p>
+    <p>
+      My working set of interface parts. Each one is plain HTML and CSS that
+      reads only theme tokens, so the theme switch above restyles everything on
+      this page. Copy whatever you like: the code is MIT licensed.
+    </p>
+    <div class="intro-stats">
+      <span>{PALETTES.length} themes</span>
+      <span>{ELEMENT_COUNT} elements</span>
+      {
+        APPROVED_COUNT < ELEMENT_COUNT && (
+          <span>{ELEMENT_COUNT - APPROVED_COUNT} in review</span>
+        )
+      }
+    </div>
+  </div>
+
+  <Foundations />
+
+  {
+    CATALOG.map((category) => (
+      <section
+        class="section"
+        id={category.id}
+        aria-labelledby={`${category.id}-h`}
+      >
+        <div class="section-head">
+          <h2 id={`${category.id}-h`}>{category.title}</h2>
+          <span class="section-count">
+            {category.elements.length}{" "}
+            {category.elements.length === 1 ? "element" : "elements"}
+          </span>
+        </div>
+        {category.elements.map((element) => (
+          <Spec element={element} />
+        ))}
+      </section>
+    ))
+  }
+</Layout>
+
+<p class="visually-hidden" id="copy-status" role="status"></p>
+
+<script>
+  const status = document.getElementById("copy-status");
+
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as Element).closest<HTMLButtonElement>(
+      "[data-snippet]",
+    );
+    if (!button || !status) return;
+    const name = button.getAttribute("aria-label")?.replace(/^Copy /, "");
+    try {
+      await navigator.clipboard.writeText(button.dataset.snippet ?? "");
+    } catch {
+      status.textContent = `Couldn't copy ${name}. Open Code to copy by hand.`;
+      return;
+    }
+    status.textContent = `Copied ${name}`;
+    button.classList.add("is-copied");
+    clearTimeout(Number(button.dataset.timer));
+    button.dataset.timer = String(
+      setTimeout(() => {
+        button.classList.remove("is-copied");
+        status.textContent = "";
+      }, 1500),
+    );
+  });
+
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as Element).closest<HTMLButtonElement>(
+      "[data-copy]",
+    );
+    const code = button?.closest(".code-block")?.querySelector("pre");
+    if (!button || !code) return;
+    await navigator.clipboard.writeText(code.textContent ?? "");
+    button.textContent = "Copied";
+    setTimeout(() => {
+      button.textContent = "Copy";
+    }, 1500);
+  });
+</script>

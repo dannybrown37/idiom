@@ -1,0 +1,67 @@
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table caption {
+  padding-bottom: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+
+.table :is(th, td):first-child {
+  padding-left: 0;
+}
+
+.table :is(th, td):last-child {
+  padding-right: 0;
+}
+
+.table thead th {
+  font: 500 var(--text-xs) var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border-bottom-color: var(--line-strong);
+}
+
+.table tbody th {
+  font-weight: 600;
+}
+
+/* Right-aligned and tabular so digits line up by place value. */
+.table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.table tbody tr:hover {
+  background: var(--sunken);
+}
+
+.table .delta-up {
+  color: var(--pos);
+}
+
+.table .delta-down {
+  color: var(--neg);
+}
+
+.table .row-muted {
+  color: var(--text-faint);
+}

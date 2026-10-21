@@ -1,0 +1,35 @@
+# Run with prek (or pre-commit): `prek install`, then `prek run --all-files`.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # Licence texts stay byte-for-byte as published.
+      - id: trailing-whitespace
+        exclude: ^public/fonts/licenses/
+      - id: end-of-file-fixer
+        exclude: ^public/fonts/licenses/
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=200]
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: biome
+        name: biome
+        entry: npx biome check --no-errors-on-unmatched --files-ignore-unknown=true
+        language: system
+        types_or: [javascript, ts, json, css, astro, html]
+      - id: typecheck
+        name: tsc
+        entry: npx tsc --noEmit
+        language: system
+        pass_filenames: false
+        types_or: [ts, javascript, astro]
+      - id: test
+        name: vitest
+        entry: npm test
+        language: system
+        pass_filenames: false

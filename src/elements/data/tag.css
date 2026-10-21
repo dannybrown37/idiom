@@ -1,0 +1,37 @@
+/* For enum values (status, category). The neutral tag is the default; colour
+   only appears when the value itself means something. */
+
+.tag {
+  --tone: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 2px var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--tone);
+  background: color-mix(in oklab, var(--tone) 12%, var(--bg));
+  border-radius: min(var(--radius-s), 4px);
+}
+
+.tag-accent {
+  --tone: var(--accent-ink);
+}
+
+.tag-pos {
+  --tone: var(--pos);
+}
+
+.tag-neg {
+  --tone: var(--neg);
+}
+
+.tag-dot::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  background: currentColor;
+  border-radius: 50%;
+}

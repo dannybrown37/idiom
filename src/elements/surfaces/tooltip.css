@@ -1,0 +1,41 @@
+/* CSS-only, for supplementary hints. The tip is decoration for sighted
+   pointer and keyboard users; anything a screen reader needs belongs in the
+   control's own text or aria-label. Shown on focus too, and always shown
+   above its trigger. */
+
+.tip {
+  position: relative;
+}
+
+.tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  z-index: 20;
+  padding: var(--space-1) var(--space-2);
+  font: 500 var(--text-xs) / 1.4 var(--font-body);
+  white-space: nowrap;
+  color: var(--bg);
+  background: var(--text);
+  border-radius: min(var(--radius-s), 4px);
+  translate: -50% var(--space-1);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    translate var(--dur-fast) var(--ease);
+}
+
+.tip:hover::after,
+.tip:focus-visible::after {
+  opacity: 1;
+  translate: -50% 0;
+  transition-delay: 300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tip::after {
+    transition: none;
+  }
+}

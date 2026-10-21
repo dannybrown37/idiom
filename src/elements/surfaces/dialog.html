@@ -1,0 +1,18 @@
+<button class="btn" type="button" commandfor="dialog-demo" command="show-modal">
+  Delete song
+</button>
+<dialog class="dialog" id="dialog-demo" aria-labelledby="dialog-demo-title" closedby="any">
+  <h2 class="dialog-title" id="dialog-demo-title">Delete “Night Bus”?</h2>
+  <p class="dialog-body">
+    The song and its 14 clips are removed from this project. Samples on the
+    card stay where they are.
+  </p>
+  <div class="dialog-actions">
+    <button class="btn btn-ghost" type="button" commandfor="dialog-demo" command="close">
+      Cancel
+    </button>
+    <button class="btn btn-primary" type="button" commandfor="dialog-demo" command="close">
+      Delete
+    </button>
+  </div>
+</dialog>

@@ -1,0 +1,41 @@
+/* Builds on button.css. Joined buttons share one border and one shadow. */
+
+.btn-group {
+  display: inline-flex;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-control);
+}
+
+.btn-group .btn {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.btn-group .btn + .btn {
+  margin-left: -1px;
+}
+
+.btn-group .btn:first-child {
+  border-start-start-radius: var(--radius-control);
+  border-end-start-radius: var(--radius-control);
+}
+
+.btn-group .btn:last-child {
+  border-start-end-radius: var(--radius-control);
+  border-end-end-radius: var(--radius-control);
+}
+
+.btn-group .btn:active {
+  translate: none;
+}
+
+.btn-group .btn[aria-pressed="true"] {
+  --btn-bg: var(--accent-soft);
+  position: relative;
+  z-index: 1;
+  border-color: var(--accent);
+}

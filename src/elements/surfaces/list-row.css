@@ -1,0 +1,116 @@
+/* Each row is the edge for the next. Actions are secondary, so they appear
+   on hover or keyboard focus, and are always shown on touch screens. */
+
+.rows {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 3.5rem;
+  padding: var(--space-2) var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.row:hover {
+  background: var(--sunken);
+}
+
+.row-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  font: 500 var(--text-xs) var(--font-mono);
+  color: var(--text-muted);
+  background: var(--sunken);
+  border: 1px solid var(--line);
+  border-radius: min(var(--radius-s), 6px);
+}
+
+.row-main {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.row-title {
+  overflow: hidden;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.row-meta {
+  overflow: hidden;
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text-muted);
+}
+
+.row-value {
+  font: var(--text-sm) var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+/* Fixed width so rows with fewer actions keep the value column aligned. */
+.row-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  width: calc(4rem + var(--space-1));
+  opacity: 0;
+}
+
+.row:hover .row-actions,
+.row:focus-within .row-actions {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .row-actions {
+    opacity: 1;
+  }
+}
+
+.row-action {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--text-muted);
+  background: none;
+  border: 0;
+  border-radius: min(var(--radius-control), var(--radius-m));
+  cursor: pointer;
+}
+
+.row-action:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.row-action svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.row-dim .row-title,
+.row-dim .row-value {
+  color: var(--text-faint);
+}

@@ -1,0 +1,27 @@
+/* Builds on text-field.css. The native <select> stays, so the option list is
+   the platform's own on every device. */
+
+.select {
+  position: relative;
+  display: block;
+}
+
+.select .input {
+  appearance: none;
+  padding-right: var(--space-7);
+  cursor: pointer;
+}
+
+.select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: var(--space-4);
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 1.5px solid var(--text-muted);
+  border-bottom: 1.5px solid var(--text-muted);
+  translate: 0 -70%;
+  rotate: 45deg;
+  pointer-events: none;
+}

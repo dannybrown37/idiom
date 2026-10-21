@@ -1,0 +1,14 @@
+/* Builds on text-field.css. */
+
+.field-count {
+  font: var(--text-xs) var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-faint);
+}
+
+.textarea {
+  min-height: 6rem;
+  padding: var(--space-2) var(--space-3);
+  line-height: 1.5;
+  resize: vertical;
+}

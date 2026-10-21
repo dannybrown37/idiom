@@ -1,0 +1,47 @@
+/* Tone is carried by the mark and a faint tint, not a coloured side stripe. */
+
+.notice {
+  --tone: var(--text-muted);
+  display: flex;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  background: color-mix(in oklab, var(--tone) 7%, var(--surface));
+  border: 1px solid color-mix(in oklab, var(--tone) 28%, var(--line));
+  border-radius: var(--radius-m);
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice-title {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.notice-mark {
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 1px;
+  fill: none;
+  stroke: var(--tone);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.notice-pos {
+  --tone: var(--pos);
+}
+
+.notice-warn {
+  --tone: var(--accent-ink);
+}
+
+.notice-neg {
+  --tone: var(--neg);
+}

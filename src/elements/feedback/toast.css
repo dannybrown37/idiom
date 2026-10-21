@@ -1,0 +1,84 @@
+/* Inverted against the page so it reads as transient, not as content. */
+
+.toast-region {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  z-index: 50;
+  display: grid;
+  gap: var(--space-2);
+  justify-items: end;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 22rem;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--bg);
+  background: var(--text);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-raise);
+  pointer-events: auto;
+  transition:
+    opacity var(--dur) var(--ease),
+    translate var(--dur) var(--ease);
+
+  @starting-style {
+    opacity: 0;
+    translate: 0 var(--space-3);
+  }
+}
+
+.toast-neg::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--neg);
+  border-radius: 50%;
+}
+
+.toast-close {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-left: auto;
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+.toast-close svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  .toast-region {
+    right: var(--space-3);
+    left: var(--space-3);
+    bottom: var(--space-3);
+  }
+}

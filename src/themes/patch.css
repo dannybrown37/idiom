@@ -1,0 +1,62 @@
+/* Patch. Mirrors deluge.quest, which uses it. Source: deluge-quest/web/src/styles/global.css (:root).
+   Exact: bg (ground), sunken (surface), line (border), text, text-muted
+   (text-secondary), accent (gold), pos (teal), fonts, and the dark set.
+   Headings are DM Mono 500 at normal tracking, as on the site's page titles.
+   Radii follow the site's usage: 4px on controls (sort buttons), 3px on
+   small things (inline code).
+   Derived: surface (raised), line-strong, text-faint, accent-ink, neg.
+   Checked against the running site's computed styles, 2026-10-21.
+   Deviations, all for contrast (src/lib/themes.test.ts):
+   - the site sets near-white text on gold, which is under 3:1; here
+     on-accent is the ink colour.
+   - pos is a touch darker than the site's teal (#3a7b7c, 4.28:1 on ground).
+   - dark text-muted is a touch lighter than the site's #8a877e (4.18:1 on
+     raised surfaces); dark text-faint matches it, as nothing dimmer passes. */
+
+[data-palette="patch"] {
+  color-scheme: light;
+  --bg: #f2f0eb;
+  --surface: #f8f7f3;
+  --sunken: #e8e5df;
+  --line: #d0cdc5;
+  --line-strong: #8b8882;
+  --text: #1a1a1e;
+  --text-muted: #5a584f;
+  --text-faint: #6e6c66;
+  --accent: #c4942a;
+  /* Gold fails contrast as text on paper, so text uses a darker cut. */
+  --accent-ink: #84601a;
+  --on-accent: #1a1a1e;
+  --pos: #387576;
+  --neg: #a8432f;
+
+  --font-display: "DM Mono", ui-monospace, monospace;
+  --font-body: "DM Sans", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 500;
+  --display-tracking: normal;
+
+  --radius-s: 3px;
+  --radius-m: 8px;
+  --radius-control: 4px;
+  --shadow-control: none;
+  --shadow-raise: none;
+  --press: 1px;
+}
+
+[data-palette="patch"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #1e1d22;
+  --surface: #27262c;
+  --sunken: #18171b;
+  --line: #38373e;
+  --line-strong: #727074;
+  --text: #e0ddd6;
+  --text-muted: #928f86;
+  --text-faint: #928f86;
+  --accent: #d4a847;
+  --accent-ink: #d4a847;
+  --on-accent: #1e1d22;
+  --pos: #5aabac;
+  --neg: #e08a74;
+}

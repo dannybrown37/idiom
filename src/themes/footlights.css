@@ -1,0 +1,53 @@
+/* Footlights: Broadway playbill. Bulb yellow on black, condensed uppercase
+   headlines in Bricolage Grotesque, square poster corners. */
+
+[data-palette="footlights"] {
+  color-scheme: light;
+  --bg: #f5f1e6;
+  --surface: #fbf8f0;
+  --sunken: #ebe5d6;
+  --line: #d8d0bd;
+  --line-strong: #16120f;
+  --text: #16120f;
+  --text-muted: #574f43;
+  --text-faint: #736b5e;
+  --accent: #ffcb1f;
+  /* Bulb yellow is invisible as text on cream; text gets a deep amber. */
+  --accent-ink: #7f5b00;
+  --on-accent: #16120f;
+  --pos: #2d6a3e;
+  --neg: #b0281e;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 800;
+  --display-tracking: 0;
+  --display-stretch: 75%;
+  --display-case: uppercase;
+
+  --radius-s: 0px;
+  --radius-m: 2px;
+  --radius-control: 2px;
+  --shadow-control: none;
+  --shadow-raise: 0 0 0 1px #16120f;
+  --press: 1px;
+}
+
+[data-palette="footlights"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #12100e;
+  --surface: #1b1815;
+  --sunken: #0b0a09;
+  --line: #2e2a24;
+  --line-strong: #6d6559;
+  --text: #f5efe0;
+  --text-muted: #c2b9a6;
+  --text-faint: #8b8272;
+  --accent: #ffcb1f;
+  --accent-ink: #ffd84d;
+  --on-accent: #12100e;
+  --pos: #84c79a;
+  --neg: #ff8a7a;
+  --shadow-raise: 0 0 0 1px #5a5247;
+}

@@ -1,0 +1,61 @@
+/* Native <dialog> opened with invoker commands: focus trap, Escape, inert
+   page and top layer with no script. Builds on button.css. */
+
+.dialog {
+  width: min(100% - 2 * var(--space-4), 28rem);
+  padding: var(--space-5);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-raise);
+  transition:
+    opacity var(--dur) var(--ease),
+    translate var(--dur) var(--ease),
+    overlay var(--dur) allow-discrete,
+    display var(--dur) allow-discrete;
+  opacity: 0;
+  translate: 0 var(--space-2);
+}
+
+.dialog[open] {
+  opacity: 1;
+  translate: none;
+
+  @starting-style {
+    opacity: 0;
+    translate: 0 var(--space-2);
+  }
+}
+
+.dialog::backdrop {
+  background: color-mix(in oklab, var(--text) 35%, transparent);
+}
+
+.dialog-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.dialog-body {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog {
+    transition: none;
+  }
+}

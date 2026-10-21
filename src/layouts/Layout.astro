@@ -1,0 +1,296 @@
+---
+import "../styles/fonts.css";
+import "../styles/tokens.css";
+import "../styles/site.css";
+import SiteSearch from "../components/SiteSearch.astro";
+import { CATALOG, ELEMENT_COUNT } from "../elements";
+import { PALETTE_IDS, PALETTES } from "../themes";
+
+import.meta.glob("../elements/*/*.css", { eager: true });
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const palettes = PALETTE_IDS;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const shareImage = new URL("/og.png", Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-palette={PALETTE_IDS[0]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="idiom" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="idiom: plain HTML and CSS elements in six themes"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <slot name="head" />
+    <!-- Deliberately inline and render-blocking, restating the rules in
+         src/lib/theme.ts: a bundled module runs after first paint and would
+         flash the default palette at anyone who picked another. -->
+    <script is:inline define:vars={{ palettes }}>
+      const media = matchMedia("(prefers-color-scheme: dark)");
+      const apply = () => {
+        const root = document.documentElement;
+        const storedPalette = localStorage.getItem("idiom:palette");
+        const palette = palettes.includes(storedPalette)
+          ? storedPalette
+          : palettes[0];
+        const storedMode = localStorage.getItem("idiom:mode");
+        const mode =
+          storedMode === "light" || storedMode === "dark" ? storedMode : "system";
+        root.dataset.palette = palette;
+        root.dataset.mode = mode;
+        root.dataset.scheme =
+          mode === "system" ? (media.matches ? "dark" : "light") : mode;
+        for (const scope of document.querySelectorAll("body [data-palette]")) {
+          scope.dataset.scheme = root.dataset.scheme;
+        }
+        for (const radio of document.querySelectorAll('[name="palette"]')) {
+          radio.checked = radio.value === palette;
+        }
+        const keys = document.getElementById("keys-toggle");
+        if (keys) keys.checked = localStorage.getItem("idiom:keys") !== "off";
+        document
+          .getElementById("mode-toggle")
+          ?.setAttribute("aria-label", `Colour mode: ${mode}`);
+      };
+      apply();
+      document.addEventListener("DOMContentLoaded", apply);
+      document.addEventListener("idiom:theme", apply);
+      media.addEventListener("change", apply);
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="toast-region" role="status" aria-live="polite"></div>
+    <header class="topbar">
+      <a class="wordmark" href="/">idiom</a>
+      <button
+        class="search-trigger"
+        type="button"
+        data-search-open
+        aria-haspopup="dialog"
+        aria-label="Search elements and themes"
+      >
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <circle cx="7" cy="7" r="4.5"></circle>
+          <path d="M10.5 10.5L14 14"></path>
+        </svg>
+        <span class="search-trigger-label" aria-hidden="true">
+          Search {ELEMENT_COUNT} elements
+        </span>
+        <kbd class="kbd search-trigger-key" aria-hidden="true">/</kbd>
+      </button>
+      <button
+        class="icon-btn tip keys-trigger"
+        type="button"
+        popovertarget="keys-pop"
+        aria-label="Keyboard shortcuts"
+        data-tip="Keyboard shortcuts"
+      >
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1.5" y="4" width="13" height="8.5" rx="1.5"></rect>
+          <path d="M4 6.75h.01M6.67 6.75h.01M9.33 6.75h.01M12 6.75h.01M5 9.75h6"
+          ></path>
+        </svg>
+      </button>
+      <div class="keys-pop" id="keys-pop" popover>
+        <label class="switch">
+          <input id="keys-toggle" type="checkbox" role="switch" checked />
+          <span class="switch-track" aria-hidden="true"></span>
+          Keyboard shortcuts
+        </label>
+        <dl>
+          <dt><kbd class="kbd">/</kbd></dt>
+          <dd>Search</dd>
+          <dt><kbd class="kbd">T</kbd></dt>
+          <dd>Next theme</dd>
+          <dt><kbd class="kbd">Shift</kbd> <kbd class="kbd">T</kbd></dt>
+          <dd>Previous theme</dd>
+          <dt><kbd class="kbd">D</kbd></dt>
+          <dd>Light, dark, system</dd>
+        </dl>
+        <p>Ctrl or Cmd <kbd class="kbd">K</kbd> also opens search.</p>
+      </div>
+      <fieldset class="theme-dots">
+        <legend class="visually-hidden">Theme</legend>
+        {
+          PALETTES.map((palette) => (
+            <label
+              class="theme-dot tip"
+              data-palette={palette.id}
+              data-tip={palette.name}
+            >
+              <input
+                type="radio"
+                name="palette"
+                value={palette.id}
+                aria-label={palette.name}
+              />
+              <span class="theme-dot-accent" aria-hidden="true" />
+            </label>
+          ))
+        }
+      </fieldset>
+      <!-- Swatches carry their own data-scheme, so sync them before they paint. -->
+      <script is:inline>
+        document.dispatchEvent(new Event("idiom:theme"));
+      </script>
+      <button
+        id="mode-toggle"
+        class="icon-btn"
+        type="button"
+        aria-label="Colour mode: system"
+        title="Colour mode"
+      >
+        <svg class="mode-icon mode-system" viewBox="0 0 16 16" aria-hidden="true">
+          <circle cx="8" cy="8" r="5.5"></circle>
+          <path d="M8 2.5v11a5.5 5.5 0 0 0 0-11z" fill="currentColor"></path>
+        </svg>
+        <svg class="mode-icon mode-light" viewBox="0 0 16 16" aria-hidden="true">
+          <circle cx="8" cy="8" r="3"></circle>
+          <path
+            d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"
+          ></path>
+        </svg>
+        <svg class="mode-icon mode-dark" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M13.5 9.5A5.5 5.5 0 1 1 6.5 2.5a4.5 4.5 0 0 0 7 7z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <div class="frame">
+      <aside class="sidebar">
+        <nav aria-label="Elements">
+          <a class="sidebar-group" href="#foundations">Foundations</a>
+          {
+            CATALOG.map((category) => (
+              <div>
+                <a class="sidebar-group" href={`#${category.id}`}>
+                  {category.title}
+                  <span class="sidebar-count">{category.elements.length}</span>
+                </a>
+                <ul>
+                  {category.elements.map((element) => (
+                    <li>
+                      <a href={`#${element.id.replace("/", "-")}`}>
+                        {element.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </nav>
+      </aside>
+      <main id="main" tabindex="-1">
+        <slot />
+        <footer class="site-foot">
+          Code under the MIT License. Fonts under the SIL Open Font License,
+          bundled with their licence texts.
+        </footer>
+      </main>
+    </div>
+    <SiteSearch />
+
+    <script>
+      import { showToast } from "../elements/feedback/toast.js";
+      import { isTextEntry, shortcutFor, stepPalette } from "../lib/shortcuts";
+      import { nextMode, parseMode, parsePalette } from "../lib/theme";
+      import { PALETTE_IDS, PALETTES } from "../themes";
+
+      const announce = () => document.dispatchEvent(new Event("idiom:theme"));
+
+      const cycleMode = () => {
+        const mode = nextMode(parseMode(localStorage.getItem("idiom:mode")));
+        localStorage.setItem("idiom:mode", mode);
+        announce();
+        return mode;
+      };
+
+      document.getElementById("mode-toggle")?.addEventListener("click", cycleMode);
+
+      document.addEventListener("change", (event) => {
+        const input = event.target as HTMLInputElement;
+        if (input.name === "palette") {
+          localStorage.setItem("idiom:palette", input.value);
+          announce();
+        } else if (input.id === "keys-toggle") {
+          localStorage.setItem("idiom:keys", input.checked ? "on" : "off");
+        }
+      });
+
+      const openSearch = () => document.dispatchEvent(new Event("idiom:search"));
+      document
+        .querySelector("[data-search-open]")
+        ?.addEventListener("click", openSearch);
+
+      // One toast at a time: holding T should not stack five of them.
+      let lastToast: HTMLElement | undefined;
+      const say = (message: string) => {
+        lastToast?.remove();
+        lastToast = showToast(message);
+      };
+
+      document.addEventListener("keydown", (event) => {
+        if (event.defaultPrevented) return;
+        if (localStorage.getItem("idiom:keys") === "off") return;
+        const target = event.target as HTMLInputElement;
+        if (
+          isTextEntry({
+            tagName: target.tagName ?? "",
+            type: target.type,
+            isContentEditable: target.isContentEditable ?? false,
+          })
+        ) {
+          return;
+        }
+        const action = shortcutFor(event);
+        if (!action) return;
+        event.preventDefault();
+        if (action === "search") {
+          openSearch();
+          return;
+        }
+        if (action === "next-mode") {
+          const mode = cycleMode();
+          say(mode === "system" ? "Match system" : `${mode[0].toUpperCase()}${mode.slice(1)} mode`);
+          return;
+        }
+        const current = parsePalette(
+          localStorage.getItem("idiom:palette"),
+          PALETTE_IDS,
+        );
+        const next = stepPalette(
+          current,
+          PALETTE_IDS,
+          action === "next-palette" ? 1 : -1,
+        );
+        localStorage.setItem("idiom:palette", next);
+        announce();
+        say(PALETTES.find((palette) => palette.id === next)?.name ?? next);
+      });
+
+      import.meta.glob("../elements/*/*.js", { eager: true });
+    </script>
+  </body>
+</html>

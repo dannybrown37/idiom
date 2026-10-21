@@ -1,0 +1,740 @@
+/* The library's own chrome. It reads the same tokens as the elements, so it
+   restyles with the theme too. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+h1,
+h2,
+.wordmark,
+.specimen-display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-stretch: var(--display-stretch, normal);
+  text-transform: var(--display-case, none);
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.skip {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-2) var(--space-3);
+  background: var(--text);
+  color: var(--bg);
+  border-radius: var(--radius-s);
+  translate: 0 -200%;
+}
+
+.skip:focus-visible {
+  translate: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* Top bar */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 3.5rem;
+  padding: 0 var(--space-5);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  font-size: var(--text-xl);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 2.25rem;
+  margin-left: auto;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.search-trigger:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+.search-trigger svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.search-trigger-label {
+  min-width: 10rem;
+  text-align: left;
+}
+
+/* Search dialog: opens near the top, like a menu, so results grow downward. */
+.site-search {
+  width: min(100% - 2 * var(--space-4), 34rem);
+  margin-top: 12vh;
+  padding: var(--space-3);
+}
+
+.site-search .search {
+  width: 100%;
+}
+
+.site-search-results {
+  max-height: min(24rem, 60vh);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.site-search-results li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-s);
+  cursor: pointer;
+}
+
+.site-search-results li[hidden] {
+  display: none;
+}
+
+.site-search-results li:hover {
+  background: var(--sunken);
+}
+
+.site-search-results li[aria-selected="true"] {
+  background: var(--accent-soft);
+}
+
+.site-search-group {
+  color: var(--text-muted);
+}
+
+.site-search-empty {
+  padding: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* Each dot is its own theme scope, so it shows that theme's paper and
+   accent. Ring colours are captured here, before the scope changes them. */
+.theme-dots {
+  --dot-ring: var(--text);
+  --dot-focus: var(--focus);
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.theme-dot {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  cursor: pointer;
+}
+
+.theme-dot input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.theme-dot-accent {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.theme-dot:has(:checked) {
+  outline: 2px solid var(--dot-ring);
+  outline-offset: 2px;
+}
+
+.theme-dot:has(:focus-visible) {
+  outline: 2px solid var(--dot-focus);
+  outline-offset: 4px;
+}
+
+/* The bar sits at the top of the viewport, so its tips open downward. */
+.topbar .tip::after {
+  top: calc(100% + var(--space-3));
+  bottom: auto;
+  translate: -50% calc(-1 * var(--space-1));
+}
+
+.topbar .tip:hover::after,
+.topbar .tip:focus-visible::after,
+.theme-dot.tip:has(:focus-visible)::after {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.mode-icon {
+  display: none;
+}
+
+[data-mode="system"] .mode-system,
+[data-mode="light"] .mode-light,
+[data-mode="dark"] .mode-dark,
+html:not([data-mode]) .mode-system {
+  display: block;
+}
+
+/* Frame */
+
+.frame {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+}
+
+.sidebar {
+  position: sticky;
+  top: 3.5rem;
+  align-self: start;
+  height: calc(100dvh - 3.5rem);
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-4) var(--space-7);
+  border-right: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.sidebar ul {
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar li a {
+  display: block;
+  margin: 0 calc(-1 * var(--space-2));
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-5);
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-s);
+}
+
+.sidebar li a:hover {
+  color: var(--text);
+  background: var(--sunken);
+}
+
+.sidebar-group {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  font: 500 var(--text-xs) var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.sidebar-count {
+  color: var(--text-faint);
+}
+
+/* Shortcuts popover, pinned under its trigger's right edge. */
+.keys-trigger {
+  anchor-name: --keys-trigger;
+}
+
+.keys-trigger:has(+ .keys-pop:popover-open)::after {
+  display: none;
+}
+
+.keys-pop {
+  position-anchor: --keys-trigger;
+  position-area: bottom span-left;
+  width: 17rem;
+  margin: var(--space-2) 0 0;
+  padding: var(--space-4);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-raise);
+}
+
+.keys-pop:popover-open {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.keys-pop dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2) var(--space-3);
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.keys-pop dd {
+  margin: 0;
+}
+
+.keys-pop p {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+main {
+  min-width: 0;
+  padding: var(--space-7) var(--space-7) var(--space-8);
+}
+
+main > * {
+  max-width: 68rem;
+}
+
+@media (max-width: 56rem) {
+  .frame {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .topbar {
+    padding: 0 var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .search-trigger {
+    padding: 0;
+    width: 2.25rem;
+    justify-content: center;
+    border-color: transparent;
+  }
+
+  .search-trigger-label,
+  .search-trigger-key {
+    display: none;
+  }
+}
+
+/* Phones rarely have a keyboard, and the bar has no room to spare there. */
+@media (max-width: 40rem) {
+  .keys-trigger {
+    display: none;
+  }
+
+  main {
+    padding: var(--space-6) var(--space-4) var(--space-7);
+  }
+}
+
+/* Intro */
+
+.intro {
+  padding-bottom: var(--space-7);
+}
+
+.intro h1 {
+  font-size: var(--text-4xl);
+  overflow-wrap: anywhere;
+}
+
+.intro [data-palette-name] {
+  display: none;
+}
+
+.intro .intro-usage {
+  margin-top: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.intro p {
+  max-width: 38rem;
+  margin-top: var(--space-5);
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+}
+
+.intro-stats {
+  display: flex;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+  font: var(--text-xs) var(--font-mono);
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Sections */
+
+.section {
+  padding-top: var(--space-7);
+  scroll-margin-top: 3.5rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.section-head h2 {
+  font-size: var(--text-2xl);
+}
+
+.site-foot {
+  margin-top: var(--space-7);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+.section-count {
+  font: var(--text-xs) var(--font-mono);
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.label {
+  font: 500 var(--text-xs) var(--font-mono);
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Token names are case-sensitive; uppercasing them shows a name that doesn't exist. */
+code.label {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Element spec */
+
+.spec {
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 3.5rem;
+}
+
+.spec-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.spec-head h3 {
+  font-weight: 600;
+  font-size: var(--text-lg);
+}
+
+.spec-id {
+  margin-left: auto;
+}
+
+.spec-copy {
+  flex: none;
+  margin: calc(-1 * var(--space-2)) 0;
+}
+
+/* Right-aligned, so a long hint can't run off the edge of the column. */
+.spec-copy.tip::after {
+  left: auto;
+  right: 0;
+  translate: 0 var(--space-1);
+}
+
+.spec-copy.tip:hover::after,
+.spec-copy.tip:focus-visible::after {
+  translate: 0 0;
+}
+
+.spec-copy .copied-icon,
+.spec-copy.is-copied .copy-icon {
+  display: none;
+}
+
+.spec-copy.is-copied .copied-icon {
+  display: block;
+  stroke: var(--pos);
+}
+
+.badge {
+  padding: 2px var(--space-2);
+  font: 500 var(--text-xs) / 1.4 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-s);
+}
+
+.spec-note {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.spec-stage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  padding: var(--space-7) var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+}
+
+.spec-code {
+  margin-top: var(--space-3);
+}
+
+.spec-code summary {
+  display: inline-block;
+  padding: var(--space-1) 0;
+  font: 500 var(--text-xs) var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.spec-code summary:hover {
+  color: var(--text);
+}
+
+.code-block {
+  margin-top: var(--space-3);
+}
+
+.code-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-1);
+}
+
+.code-block pre {
+  margin: 0;
+  padding: var(--space-4);
+  max-height: 24rem;
+  overflow: auto;
+  font-size: var(--text-xs);
+  line-height: 1.65;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+}
+
+.astro-code {
+  --astro-code-foreground: var(--text);
+  --astro-code-background: var(--sunken);
+  --astro-code-token-keyword: var(--accent-ink);
+  --astro-code-token-constant: var(--text);
+  --astro-code-token-string: var(--text-muted);
+  --astro-code-token-string-expression: var(--text-muted);
+  --astro-code-token-comment: var(--text-faint);
+  --astro-code-token-function: var(--accent-ink);
+  --astro-code-token-parameter: var(--text);
+  --astro-code-token-punctuation: var(--text-faint);
+  --astro-code-token-link: var(--accent-ink);
+}
+
+/* Foundations */
+
+.swatches {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatch {
+  display: grid;
+  grid-template-columns: 2.5rem 9rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.swatch-chip {
+  height: 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+}
+
+.swatch code {
+  font-size: var(--text-xs);
+}
+
+.swatch-role {
+  color: var(--text-muted);
+}
+
+.swatch-value {
+  font: var(--text-xs) var(--font-mono);
+  color: var(--text-faint);
+  text-align: right;
+}
+
+.subsection {
+  margin-top: var(--space-7);
+}
+
+.specimen {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.specimen-display {
+  font-size: var(--text-3xl);
+  line-height: 1.05;
+}
+
+.specimen-body {
+  max-width: 36rem;
+}
+
+.specimen-mono {
+  font: var(--text-sm) var(--font-mono);
+}
+
+.scale {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  margin-top: var(--space-4);
+}
+
+.scale-bar {
+  height: 0.75rem;
+  background: var(--text);
+  border-radius: 1px;
+}
+
+.shapes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.shape {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.shape-box {
+  width: 6rem;
+  height: 4rem;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+}
+
+@media (max-width: 40rem) {
+  .swatch {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+  }
+
+  .swatch-role {
+    display: none;
+  }
+
+  .specimen,
+  .scale {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .spec-stage {
+    padding: var(--space-5) var(--space-4);
+  }
+}

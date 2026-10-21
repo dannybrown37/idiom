@@ -1,0 +1,79 @@
+.field {
+  display: grid;
+  gap: var(--space-1);
+  width: min(100%, 18rem);
+  align-content: start;
+}
+
+.field-wide {
+  width: min(100%, 28rem);
+}
+
+/* Label on the left edge, a live value or count on the right. */
+.field-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.field-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.field-hint,
+.field-error {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.field-error {
+  color: var(--neg);
+}
+
+.input {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0 var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  /* Pill-shaped themes would turn a textarea into a capsule; cap the curve. */
+  border-radius: min(var(--radius-control), var(--radius-m));
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.input::placeholder {
+  color: var(--text-faint);
+}
+
+.input:hover {
+  border-color: var(--text-muted);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 0;
+  border-color: var(--accent);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--neg);
+}
+
+.input[aria-invalid="true"]:focus-visible {
+  outline-color: var(--neg);
+}
+
+.input:disabled {
+  color: var(--text-faint);
+  background: var(--sunken);
+  border-color: var(--line);
+  cursor: not-allowed;
+}

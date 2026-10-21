@@ -1,0 +1,52 @@
+/* Ink: flat ink and paper, one orange marker, hard-edge depth with no blur.
+   Controls push back: the offset shadow collapses on press. */
+
+[data-palette="ink"] {
+  color-scheme: light;
+  --bg: #f6f3ec;
+  --surface: #fbf9f4;
+  --sunken: #ece8de;
+  --line: #d6d1c4;
+  --line-strong: #090a0c;
+  --text: #090a0c;
+  --text-muted: #4f4c45;
+  --text-faint: #716d64;
+  --accent: #ff5a2d;
+  /* The marker fails contrast as text on paper; text gets a burnt cut. */
+  --accent-ink: #b83a14;
+  --on-accent: #090a0c;
+  --pos: #2e6b4a;
+  --neg: #b3261e;
+
+  --font-display: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-body: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 800;
+  --display-tracking: -0.045em;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-control: 999px;
+  --shadow-control: 2px 2px 0 #090a0c;
+  --shadow-raise: 4px 4px 0 #090a0c;
+  --press: 2px;
+}
+
+[data-palette="ink"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #090a0c;
+  --surface: #111215;
+  --sunken: #050607;
+  --line: #24252a;
+  --line-strong: #c9c4b8;
+  --text: #f6f3ec;
+  --text-muted: #c9c4b8;
+  --text-faint: #8e897d;
+  --accent: #ff5a2d;
+  --accent-ink: #ff7a55;
+  --on-accent: #090a0c;
+  --pos: #7cc79c;
+  --neg: #ff8a80;
+  --shadow-control: 2px 2px 0 #3a3b41;
+  --shadow-raise: 4px 4px 0 #3a3b41;
+}
