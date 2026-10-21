@@ -14,6 +14,7 @@ code and a copy button.
 | Brick | [maadgoat.com](https://maadgoat.com) |
 | Ink | not yet |
 | Footlights | not yet |
+| Nib | Quire (local app; Ink with an amber marker) |
 
 On the site, `T` / `Shift+T` cycles themes and `D` cycles light, dark and
 system.

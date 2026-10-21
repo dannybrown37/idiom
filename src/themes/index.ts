@@ -4,6 +4,7 @@ import "./matinee.css";
 import "./brick.css";
 import "./ink.css";
 import "./footlights.css";
+import "./nib.css";
 
 export interface Site {
   name: string;
@@ -42,6 +43,7 @@ export const PALETTES: Palette[] = [
   },
   { id: "ink", name: "Ink", usedBy: [] },
   { id: "footlights", name: "Footlights", usedBy: [] },
+  { id: "nib", name: "Nib", usedBy: [] },
 ];
 
 export const PALETTE_IDS = PALETTES.map((palette) => palette.id);

@@ -1,0 +1,53 @@
+/* Nib: Ink's paper and hard-edge depth with a softer marker. The orange-red
+   gives way to an amber highlighter, so long working sessions stay calm and
+   the accent reads as "marked", not "alarm". Used by Quire. */
+
+[data-palette="nib"] {
+  color-scheme: light;
+  --bg: #f6f3ec;
+  --surface: #fbf9f4;
+  --sunken: #ece8de;
+  --line: #d9d3c5;
+  --line-strong: #22211e;
+  --text: #16150f;
+  --text-muted: #4f4c45;
+  --text-faint: #6c685f;
+  --accent: #f2b347;
+  /* Amber fails as text on paper; text gets a burnt umber cut. */
+  --accent-ink: #8a5200;
+  --on-accent: #16150f;
+  --pos: #2e6b4a;
+  --neg: #a8321f;
+
+  --font-display: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-body: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 750;
+  --display-tracking: -0.035em;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-control: 999px;
+  --shadow-control: 2px 2px 0 #22211e;
+  --shadow-raise: 3px 3px 0 #22211e;
+  --press: 2px;
+}
+
+[data-palette="nib"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #121110;
+  --surface: #1a1917;
+  --sunken: #0b0a09;
+  --line: #2c2a26;
+  --line-strong: #b9b2a3;
+  --text: #f1ede4;
+  --text-muted: #c4beb1;
+  --text-faint: #958f82;
+  --accent: #f2b347;
+  --accent-ink: #f5c46e;
+  --on-accent: #16150f;
+  --pos: #82c9a0;
+  --neg: #ff917c;
+  --shadow-control: 2px 2px 0 #3d3a34;
+  --shadow-raise: 3px 3px 0 #3d3a34;
+}
