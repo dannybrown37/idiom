@@ -24,7 +24,7 @@ repos:
         types_or: [javascript, ts, json, css, astro, html]
       - id: typecheck
         name: tsc
-        entry: npx tsc --noEmit
+        entry: bash -c 'npx astro sync >/dev/null && npx tsc --noEmit'
         language: system
         pass_filenames: false
         types_or: [ts, javascript, astro]
