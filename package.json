@@ -17,7 +17,7 @@
     "check": "biome check . && astro sync && tsc --noEmit"
   },
   "dependencies": {
-    "astro": "7.4.1"
+    "astro": "7.4.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
