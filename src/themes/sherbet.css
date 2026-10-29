@@ -1,0 +1,52 @@
+/* Sherbet: peach paper, a bubblegum marker, chunky rounded type and a bouncy
+   offset shadow. For light days, brainstorms and lists that should feel fun. */
+
+[data-palette="sherbet"] {
+  color-scheme: light;
+  --bg: #fff4ef;
+  --surface: #fffaf7;
+  --sunken: #fbe7df;
+  --line: #f0d5ca;
+  --line-strong: #6e4a52;
+  --text: #2a1720;
+  --text-muted: #66474f;
+  --text-faint: #7a5961;
+  --accent: #ff7aa8;
+  /* Bubblegum is a fill; text gets a raspberry cut. */
+  --accent-ink: #ad2257;
+  --on-accent: #2a1720;
+  --pos: #23705a;
+  --neg: #b3261e;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 800;
+  --display-tracking: -0.02em;
+
+  --radius-s: 10px;
+  --radius-m: 16px;
+  --radius-control: 999px;
+  --shadow-control: 3px 3px 0 #2a1720;
+  --shadow-raise: 4px 4px 0 #2a1720;
+  --press: 3px;
+}
+
+[data-palette="sherbet"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #1c1218;
+  --surface: #251820;
+  --sunken: #140c11;
+  --line: #3a2630;
+  --line-strong: #8f6f7b;
+  --text: #fbecf1;
+  --text-muted: #d4b8c2;
+  --text-faint: #a88a95;
+  --accent: #ff8fb6;
+  --accent-ink: #ffa6c5;
+  --on-accent: #1c1218;
+  --pos: #7fd6b4;
+  --neg: #ff9a8a;
+  --shadow-control: 3px 3px 0 #4a2f3b;
+  --shadow-raise: 4px 4px 0 #4a2f3b;
+}

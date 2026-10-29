@@ -1,0 +1,51 @@
+/* Moss: sage paper, a leaf-green marker and serif headlines. Soft corners and
+   a faint lift instead of hard edges, for slow reading and reflective writing. */
+
+[data-palette="moss"] {
+  color-scheme: light;
+  --bg: #eef1ea;
+  --surface: #f6f8f3;
+  --sunken: #e2e7dc;
+  --line: #cfd8c8;
+  --line-strong: #5f6b58;
+  --text: #1d2419;
+  --text-muted: #4a5544;
+  --text-faint: #5c6756;
+  --accent: #86b06a;
+  /* Leaf green is too light for text on sage; text gets a forest cut. */
+  --accent-ink: #3b6829;
+  --on-accent: #12180f;
+  --pos: #2e6b4a;
+  --neg: #a33a2a;
+
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.01em;
+
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-control: 999px;
+  --shadow-control: none;
+  --shadow-raise: 0 2px 12px rgb(29 36 25 / 0.09);
+  --press: 0px;
+}
+
+[data-palette="moss"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #141a13;
+  --surface: #1b2219;
+  --sunken: #0e130d;
+  --line: #2a3327;
+  --line-strong: #7d8a76;
+  --text: #e6ecdf;
+  --text-muted: #b4bfab;
+  --text-faint: #8d9985;
+  --accent: #8fbf72;
+  --accent-ink: #a9d38e;
+  --on-accent: #10160d;
+  --pos: #8fd0a5;
+  --neg: #f0907e;
+  --shadow-raise: 0 2px 10px rgb(0 0 0 / 0.35);
+}

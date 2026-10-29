@@ -1,0 +1,52 @@
+/* Phosphor: a green-screen terminal. Monospace everywhere, square corners, no
+   depth, one phosphor-green marker. For heads-down deep work; best in dark.
+   Light is greenbar printer paper. */
+
+[data-palette="phosphor"] {
+  color-scheme: light;
+  --bg: #eef2ec;
+  --surface: #f6f9f4;
+  --sunken: #e1e8de;
+  --line: #c7d3c3;
+  --line-strong: #4d5c49;
+  --text: #0f1a0f;
+  --text-muted: #3f4f3c;
+  --text-faint: #536250;
+  --accent: #3cc865;
+  /* Phosphor green glows on black but vanishes on paper; text gets a dark cut. */
+  --accent-ink: #1d6b33;
+  --on-accent: #0f1a0f;
+  --pos: #1d6b33;
+  --neg: #a3261b;
+
+  --font-display: "DM Mono", ui-monospace, monospace;
+  --font-body: "DM Mono", ui-monospace, monospace;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.02em;
+
+  --radius-s: 0px;
+  --radius-m: 2px;
+  --radius-control: 2px;
+  --shadow-control: none;
+  --shadow-raise: 0 0 0 1px #4d5c49;
+  --press: 0px;
+}
+
+[data-palette="phosphor"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0a0f0a;
+  --surface: #0f160f;
+  --sunken: #050805;
+  --line: #1d2a1d;
+  --line-strong: #4f6d4f;
+  --text: #c8f5c8;
+  --text-muted: #8fc48f;
+  --text-faint: #6f9f6f;
+  --accent: #3ce26b;
+  --accent-ink: #5cf08a;
+  --on-accent: #0a0f0a;
+  --pos: #5cf08a;
+  --neg: #ff7b6b;
+  --shadow-raise: 0 0 0 1px #2c4a2c;
+}
