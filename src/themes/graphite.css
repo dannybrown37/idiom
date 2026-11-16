@@ -1,0 +1,52 @@
+/* Graphite: cool neutral greys, an indigo marker and hairline borders. Soft
+   depth instead of hard edges; built dark-first, with a crisp light twin. */
+
+[data-palette="graphite"] {
+  color-scheme: light;
+  --bg: #f6f6f8;
+  --surface: #ffffff;
+  --sunken: #ececf0;
+  --line: #e1e1e7;
+  --line-strong: #7a7a88;
+  --text: #111114;
+  --text-muted: #4a4a55;
+  --text-faint: #686875;
+  --accent: #5b5ce6;
+  /* Indigo fill is too light for small text on white; text gets a deeper cut. */
+  --accent-ink: #4545c8;
+  --on-accent: #ffffff;
+  --pos: #1f7a52;
+  --neg: #c0353a;
+
+  --font-display: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-body: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 650;
+  --display-tracking: -0.022em;
+
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-control: 10px;
+  --shadow-control: 0 1px 2px rgb(17 17 20 / 0.06);
+  --shadow-raise: 0 1px 2px #1111140a, 0 8px 24px -8px #1111141f;
+  --press: 0px;
+}
+
+[data-palette="graphite"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0c0c0e;
+  --surface: #141417;
+  --sunken: #08080a;
+  --line: #26262b;
+  --line-strong: #6e6e7a;
+  --text: #f2f2f4;
+  --text-muted: #b4b4bd;
+  --text-faint: #8a8a96;
+  --accent: #8b8cff;
+  --accent-ink: #a9aaff;
+  --on-accent: #0c0c0e;
+  --pos: #5fd3a0;
+  --neg: #ff7a7a;
+  --shadow-control: 0 1px 0 rgb(255 255 255 / 0.05) inset;
+  --shadow-raise: 0 1px 0 #ffffff0d inset, 0 12px 32px -12px #000000b3;
+}

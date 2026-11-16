@@ -1,0 +1,52 @@
+/* Midnight: blue-black night with a cyan marker, rounder corners and soft
+   depth. The light twin is a pale blue-grey day with a deep teal ink. */
+
+[data-palette="midnight"] {
+  color-scheme: light;
+  --bg: #f2f5fa;
+  --surface: #fafcff;
+  --sunken: #e5eaf3;
+  --line: #d6deeb;
+  --line-strong: #6b7891;
+  --text: #0d1320;
+  --text-muted: #44506a;
+  --text-faint: #5f6a82;
+  --accent: #22b8d4;
+  /* Cyan fails as text on pale blue; text gets a deep teal. */
+  --accent-ink: #076b80;
+  --on-accent: #04121a;
+  --pos: #12775a;
+  --neg: #c22f4b;
+
+  --font-display: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-body: "Inter Tight", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-weight: 650;
+  --display-tracking: -0.022em;
+
+  --radius-s: 10px;
+  --radius-m: 16px;
+  --radius-control: 12px;
+  --shadow-control: 0 1px 2px rgb(13 19 32 / 0.06);
+  --shadow-raise: 0 1px 2px #0d13200a, 0 10px 28px -10px #0d132029;
+  --press: 0px;
+}
+
+[data-palette="midnight"][data-scheme="dark"] {
+  color-scheme: dark;
+  --bg: #0a0d14;
+  --surface: #111622;
+  --sunken: #070910;
+  --line: #1f2738;
+  --line-strong: #56637e;
+  --text: #eef2fb;
+  --text-muted: #aab4c8;
+  --text-faint: #828da6;
+  --accent: #4fd1e8;
+  --accent-ink: #7fe0f0;
+  --on-accent: #04121a;
+  --pos: #5be0a8;
+  --neg: #ff7d93;
+  --shadow-control: 0 1px 0 rgb(255 255 255 / 0.05) inset;
+  --shadow-raise: 0 1px 0 #ffffff0d inset, 0 12px 32px -12px #000000b3;
+}

@@ -9,6 +9,8 @@ import "./moss.css";
 import "./dusk.css";
 import "./sherbet.css";
 import "./phosphor.css";
+import "./graphite.css";
+import "./midnight.css";
 
 export interface Site {
   name: string;
@@ -52,6 +54,8 @@ export const PALETTES: Palette[] = [
   { id: "dusk", name: "Dusk", usedBy: [] },
   { id: "sherbet", name: "Sherbet", usedBy: [] },
   { id: "phosphor", name: "Phosphor", usedBy: [] },
+  { id: "graphite", name: "Graphite", usedBy: [] },
+  { id: "midnight", name: "Midnight", usedBy: [] },
 ];
 
 export const PALETTE_IDS = PALETTES.map((palette) => palette.id);
